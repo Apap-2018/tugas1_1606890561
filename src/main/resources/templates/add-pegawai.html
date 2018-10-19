@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Add Pegawai</title>
+	<object th:include="fragments/fragment :: header" th:remove="tag"></object>
+   <script th:src="@{/jquery/jquery-3.3.1.min.js}"></script>
+
+<body>
+    <nav th:replace="fragments/fragment :: navbar"></nav>
+
+    <div class="container-fluid">
+        <h2>Hello!</h2>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        Tambah pegawai
+                    </div>
+                    <div class="card-body">
+                        <form th:action="@{/pegawai/tambah}" th:object="${pegawai}" method="POST">
+                            Nama: <br>
+                            <input type="text" name="nama" class="form-control"/>
+                            <br>
+                            Tempat Lahir: <br>
+                            <input type="text" name="tempatLahir" class="form-control"/>
+                            <br>
+                            Tanggal Lahir: <br>
+                            <input type="date" name="tanggalLahir" class="form-control"/>
+                            <br>
+                            Tahun Masuk: <br>
+                            <input type="text" name="tahunMasuk" class="form-control"/>
+                            <br>
+                        
+                            <label for="location">Provinsi</label><br>
+                            <select class="form-control" id="location">              
+							      <option th:each="provinsi : ${provinsi}" th:value="${provinsi.id}" th:text="${provinsi.nama}"></option>
+							</select>
+                            <br>
+                            
+                            <label for="location">Instansi</label><br>
+                            <select class="form-control" id="instansi">
+    							<option th:each="instansi : ${pegawai.instansi}" th:value="${instansi.id}" th:text="${instansi.nama}"></option>
+    						</select>
+    						<br>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</body>
+<script th:src="@{/jquery/jquery-3.3.1.min.js}"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script th:src="@{/jquery/jquery-3.3.1.min.js}"></script>
+		<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+	<script th:inline="javascript">
+	alert('asd');	
+	 $('#location').change(
+			 alert('asd');
+        function() {
+        	alert('alert');
+            $.getJSON("http://localhost:8080/pegawai/tambahLagi", {
+                idProvinsi : $(this).val(),
+                ajax : 'true'
+            }, function(data) {
+                var html = '<option value="">-- instansi --</option>';
+                var len = data.length;
+                for ( var i = 0; i < len; i++) {
+                    html += '<option value="' + data[i].nume + '">'
+                            + data[i].nume + '</option>';
+                }
+                html += '</option>';
+                $('#instansi').html(html);
+                alert("BACOT");
+            });
+        });
+	 
+	 </script>
+
+</html>

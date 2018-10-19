@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+		<title>SIPEG</title>
+		
+		<object th:include="fragments/Fragment :: header" th:remove="tag"></object>
+		
+	</head>
+	
+	<body>
+		<nav th:replace="fragments/Fragment :: navbar"></nav>
+				
+		<div class="container-fluid">
+		
+		<h1>Selamat Datang</h1>
+		<h3>Selamat Datang di Sistem Informasi Kepegawaian</h3>
+
+		<br>
+		
+		<div class="row">
+			<div class="col-md-6">
+				<div class="card">
+					
+					<div class="card-header">
+						<h3>Lihat Data Pegwai TerSenior</h3>
+					</div>
+					
+						<div class="card-body">
+							<table>
+							<h2 th:text="'Data Pegawai - '+${pegawaiTua.nip}"></h2>
+								  <tr>
+								    <th width="50%" align="left">NIP: </th>
+								    <td th:text="${pegawaiTua.nip}" align="left"></td>
+								  </tr>
+								  <br>
+								  <tr>
+								    <th align="left">NAME: </th>
+								    <td th:text="${pegawaiTua.nama}" align="left"></td>
+								  </tr>
+								  <br>
+								  <tr>
+								    <th align="left">Tempat Lahir: </th>
+								    <td th:text="${pegawaiTua.tempatLahir}" align="left"></td>
+								  </tr>
+								  <br>
+								  <tr>
+								    <th align="left">Tanggal Lahir: </th>
+								    <td th:text="${pegawaiTua.tanggalLahir}" align="left"></td>
+								  </tr>
+								  <br>
+								  <tr>
+								    <th align="left">Tahun Masuk: </th>
+								    <td th:text="${pegawaiTua.tahunMasuk}" align="left"></td>
+								  </tr>
+								  <br>
+								  <tr>
+								    <th align="left">Nama Instansi: </th>
+									<td th:text="${pegawaiTua.instansi.nama}" align="left"></td>
+								  </tr>
+								  <br>
+								  <tr>    
+								    <th align="left">Jabatan: </th>
+								    <td th:each="jabatan : ${pegawaiTua.jabatan}" align="left">
+										<ul>
+											<li th:text="${jabatan.nama}" align="left"><br></li>
+										</ul>
+									</td>
+								  </tr>
+								  <tr align="left">	
+								    <th>Gaji: </th>
+								    <td th:text="'Rp '+${pegawaiTua.gaji}"></td>
+								  </tr>
+								  </table>
+								  <br>							
+						</div>
+				</div>
+			</div>
+		</div>
+		<br>
+		
+		<div class="row">
+			<div class="col-md-6">
+				<div class="card">
+					
+					<div class="card-header">
+						<h3>Lihat Data Pegwai TerJunior</h3>
+					</div>
+					
+						<div class="card-body">
+							
+							<h2 th:text="'Data Pegawai - '+${pegawaiMuda.nip}"></h2>
+								  <table>
+								  <tr>
+								    <th width="50%" align="left">NIP: </th>
+								    <td th:text="${pegawaiMuda.nip}" align="left"></td>
+								  </tr>
+								  <br>
+								  <tr>
+								    <th align="left">NAME: </th>
+								    <td th:text="${pegawaiMuda.nama}" align="left"></td>
+								  </tr>
+								  <br>
+								  <tr>
+								    <th align="left">Tempat Lahir: </th>
+								    <td th:text="${pegawaiMuda.tempatLahir}" align="left"></td>
+								  </tr>
+								  <br>
+								  <tr>
+								    <th align="left">Tanggal Lahir: </th>
+								    <td th:text="${pegawaiMuda.tanggalLahir}" align="left"></td>
+								  </tr>
+								  <br>
+								  <tr>
+								    <th align="left">Tahun Masuk: </th>
+								    <td th:text="${pegawaiMuda.tahunMasuk}" align="left"></td>
+								  </tr>
+								  <br>
+								  <tr>
+								    <th align="left">Nama Instansi: </th>
+									<td th:text="${pegawaiMuda.instansi.nama}" align="left"></td>
+								  </tr>
+								  <br>
+								  <tr>    
+								    <th align="left">Jabatan: </th>
+								    <td th:each="jabatan : ${pegawaiMuda.jabatan}" align="left">
+										<ul>
+											<li th:text="${jabatan.nama}" align="left"><br></li>
+										</ul>
+									</td>
+								  </tr>
+								  <tr align="left">	
+								    <th>Gaji: </th>
+								    <td th:text="'Rp '+${pegawaiMuda.gaji}"></td>
+								  </tr>
+								  </table>
+								  <br>							
+						</div>
+				</div>
+			</div>
+		</div>
+		
+		</div></body></html>

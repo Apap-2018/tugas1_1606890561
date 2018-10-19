@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+		<title>SIPEG</title>
+		
+		<object th:include="fragments/Fragment :: header" th:remove="tag"></object>
+		
+	</head>
+	
+	<body>
+		<nav th:replace="fragments/Fragment :: navbar"></nav>
+				
+		<div class="container-fluid">
+		
+		<h1>Selamat Datang</h1>
+		<h3>Selamat Datang di Sistem Informasi Kepegawaian</h3>
+
+		<br>
+		
+		<div class="row">
+			<div class="col-md-6">
+				<div class="card">
+					
+					<div class="card-header">
+						<h3>Lihat Data Pegwai Berdasarkan NIP</h3>
+						Masukkan Nomer Induk Pegawai
+					</div>
+					<form th:action="@{/pegawai}" method = "GET">
+						<div class="card-body">
+							<p class="card-text">NIP:</p>
+							<input type="text" name="NIP" class="form-control" />
+							<p></p>
+							<button type="submit" class="btn btn-primary"> Cari </button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		
+		<br>
+					
+		<div class="row">
+			<div class="col-md-6">
+				<div class="card">	
+					<div class="card-header">			
+					<h3>Pilih Detail Jabatan</h3>
+					Detail Jabtana
+					</div>
+					<form th:action="@{/jabatan/view}" method="GET">
+				    <select name="idJabatan">
+				    	<option th:each="jabatan : ${listJabatan}" th:value="${jabatan.id}" th:text="${jabatan.Nama}" />
+				    </select><br>
+				<button type="submit" class="btn btn-primary"> Cari </button>
+				</form>
+				</div>
+			</div>
+		</div>
+				
+		<div class="row">
+			<div class="col-md-6">
+				<div class="card">	
+					<div class="card-header">			
+					<h3>Lihat TerSenior dan TerJunior</h3>
+					Instansi
+					</div>
+					<form th:action="@{/pegawai/tuamuda}" method="GET">
+				    <select name="idInstansi">
+				    	<option th:each="instansi : ${listInstansi}" th:value="${instansi.id}" th:text="${instansi.Nama}" />
+				    </select><br>
+				<button type="submit" class="btn btn-primary"> Cari </button>
+				</form>
+				</div>
+			</div>
+		</div>	
+		
+		</div>
+	</body>
+</html>
