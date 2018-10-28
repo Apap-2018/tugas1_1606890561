@@ -47,12 +47,13 @@ public class ProvinsiModel implements Serializable{
 	@NotNull
 	@Size(max = 255)
 	@Column(name = "presentase_tunjangan", nullable = false)
-	private double prosentaseTunjangan;
+	private double presentaseTunjangan;
 	
 //onetomany
 	@JsonIgnore
-	@OneToMany(mappedBy = "provinsi", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "provinsi", cascade = CascadeType.ALL)
 	private List<InstansiModel> instansi;
+
 	
 //setter getter
 	public long getId() {
@@ -67,16 +68,24 @@ public class ProvinsiModel implements Serializable{
 		return nama;
 	}
 
-	public void setNama(String namaProvinsi) {
-		this.nama = namaProvinsi;
+	public void setNama(String nama) {
+		this.nama = nama;
 	}
 
-	public double getProsentaseTunjangan() {
-		return prosentaseTunjangan;
+	public double getPresentaseTunjangan() {
+		return presentaseTunjangan;
 	}
 
-	public void setProsentaseTunjangan(double prosentaseTunjangan) {
-		this.prosentaseTunjangan = prosentaseTunjangan;
+	public void setPresentaseTunjangan(double presentaseTunjangan) {
+		this.presentaseTunjangan = presentaseTunjangan;
+	}
+
+	public List<InstansiModel> getInstansi() {
+		return instansi;
+	}
+
+	public void setInstansi(List<InstansiModel> instansi) {
+		this.instansi = instansi;
 	}
 	
 	

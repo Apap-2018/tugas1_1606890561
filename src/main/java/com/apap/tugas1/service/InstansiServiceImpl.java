@@ -29,4 +29,10 @@ public class InstansiServiceImpl implements IntansiService{
 		return instansiDb.findAll();
 	}
 
+	@Override
+	public List<InstansiModel> getInstansiFromProvinsi(ProvinsiModel provinsi) {
+		// TODO Auto-generated method stub
+		return instansiDb.findByProvinsi(provinsi);
+	}
+
 }

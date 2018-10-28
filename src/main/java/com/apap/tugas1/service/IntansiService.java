@@ -10,5 +10,7 @@ public interface IntansiService {
 	InstansiModel findById(long id);
 	
 	List<InstansiModel> getAllInstansi();
+	
+	List<InstansiModel> getInstansiFromProvinsi(ProvinsiModel provinsi);
 
 }

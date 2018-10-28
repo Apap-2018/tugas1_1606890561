@@ -96,7 +96,7 @@ public class PegawaiModel implements Serializable {
 //setter getter
 	public long getGaji() {
 		double gaji = 0;
-		double tunjangan = instansi.getProvinsi().getProsentaseTunjangan() * 0.01;
+		double tunjangan = instansi.getProvinsi().getPresentaseTunjangan() * 0.01;
 		for(int i =0; i< jabatan.size() ; i++) {
 			if(jabatan.get(i).getGajiPokok() > gaji) {
 				gaji = jabatan.get(i).getGajiPokok();

@@ -4,7 +4,7 @@
 <head>
     <title>Add Pegawai</title>
 	<object th:include="fragments/fragment :: header" th:remove="tag"></object>
-   <script th:src="@{/jquery/jquery-3.3.1.min.js}"></script>
+   <script th:src="@{/js/jquery-3.3.1.min.js}"></script>
 
 <body>
     <nav th:replace="fragments/fragment :: navbar"></nav>
@@ -31,18 +31,55 @@
                             Tahun Masuk: <br>
                             <input type="text" name="tahunMasuk" class="form-control"/>
                             <br>
-                        
-                            <label for="location">Provinsi</label><br>
-                            <select class="form-control" id="location">              
-							      <option th:each="provinsi : ${provinsi}" th:value="${provinsi.id}" th:text="${provinsi.nama}"></option>
-							</select>
-                            <br>
                             
-                            <label for="location">Instansi</label><br>
-                            <select class="form-control" id="instansi">
-    							<option th:each="instansi : ${pegawai.instansi}" th:value="${instansi.id}" th:text="${instansi.nama}"></option>
-    						</select>
-    						<br>
+							Provinsi
+									<span th:if="*{instansi} == null">
+										<select  class="form-control" required="required" name="provinsi" id="provinsi" th:value="${listProvinsi}" form="pegawaiForm">
+									      <option disabled="disabled" selected="selected" >Pilih Provinsi</option>
+									      <option th:each="provinsi : ${listProvinsi}" th:value="${provinsi.id}" th:text="${provinsi.nama}" ></option>
+									    </select>
+									</span>
+									<span th:unless="*{instansi} == null">
+										<select  class="form-control" required="required" name="provinsi" id="provinsi" th:value="*{instansi.provinsi}" form="pegawaiForm">
+									      <option th:each="provinsi : ${listProvinsi}" th:value="${provinsi.id}" th:text="${provinsi.nama}" th:selected="${provinsi.id} == *{instansi.provinsi.id}"></option>
+									    </select>
+									</span>
+										
+																
+							<br>
+                            Nama Instansi
+                            	<span th:if="*{instansi} == null">
+									<select class="form-control" th:value="*{instansi}" name="instansi" id="instansi" required="required"  form="pegawaiForm">
+				                    	<option disabled="disabled" selected="selected" >Pilih Instansi</option>
+				                	</select>	
+								</span>
+								<span th:unless="*{instansi} == null">
+									<select class="form-control" th:value="*{instansi}" name="instansi" id="instansi" required="required"  form="pegawaiForm">
+					                    <option  th:value="*{instansi.id}" selected="selected" th:text="*{instansi.nama}"></option>
+					                    <option th:each="instansi : ${listInstansi}" th:value="${instansi.id}" th:text="${instansi.nama}" ></option>
+					                </select>	
+								</span>
+							
+						
+							<br>
+						<span th:each="jabatan, rowIt : *{jabatan}">
+							<tr>
+								<td style="vertical-align: top; text-align: left;" height="50" th:text="${rowIt.count} == 1 ? 'Jabatan' : ''"></td>
+								<td>
+									<select name="jabatan" id="jabatan" form="pegawaiForm">
+										<option th:each="jabatan : ${listJabatan}" th:field="*{jabatan[__${rowIt.index}__]}" th:value="${jabatan.id}" th:text="${jabatan.nama}"></option>
+									</select>
+									<button type="submit" name="deleteJabatan" th:value="${rowIt.index}" th:style="${rowIt.count} == 1 ? 'display: none;' : ''">X</button></td>
+								</td>
+							</tr>
+						</span>
+							<br>
+							
+								
+								<button type="submit" name="addJabatan">Tambah Jabatan</button>
+							
+              
+    						<br><br>
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </form>
                     </div>
@@ -50,34 +87,31 @@
             </div>
         </div>
     </div>
-    
 </body>
 <script th:src="@{/jquery/jquery-3.3.1.min.js}"></script>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-		<script th:src="@{/jquery/jquery-3.3.1.min.js}"></script>
-		<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
-	<script th:inline="javascript">
-	alert('asd');	
-	 $('#location').change(
-			 alert('asd');
-        function() {
-        	alert('alert');
-            $.getJSON("http://localhost:8080/pegawai/tambahLagi", {
-                idProvinsi : $(this).val(),
-                ajax : 'true'
-            }, function(data) {
-                var html = '<option value="">-- instansi --</option>';
-                var len = data.length;
-                for ( var i = 0; i < len; i++) {
-                    html += '<option value="' + data[i].nume + '">'
-                            + data[i].nume + '</option>';
-                }
-                html += '</option>';
-                $('#instansi').html(html);
-                alert("BACOT");
-            });
-        });
-	 
-	 </script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+		
+<script th:inline="javascript">
+	$('#provinsi').change(
+	     function() {
+	    	 alert('Bambng');
+	         $.getJSON("/pegawai/tambahLagi", {
+	        	 alert('BambangRanger');
+	             provinsiId : $(this).val(),
+	             ajax : 'true'
+	         }, function(data) {
+	             var html = '<option value="">Pilih Instansi</option>';
+	             var len = data.length;
+	             for ( var i = 0; i < len; i++) {
+	                 html += '<option value="' + data[i].id + '">'
+	                         + data[i].nama + '</option>';
+	             }
+	             html += '</option>';
+	             $('#instansi').html(html);
+	         });
+	     });
+	</script>
 
 </html>

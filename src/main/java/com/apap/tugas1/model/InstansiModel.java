@@ -55,7 +55,7 @@ public class InstansiModel implements Serializable {
 	private String deskripsiInstansi;
 	
 //id_provinsi
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne()
 	@JoinColumn(name = "id_provinsi", referencedColumnName = "id", nullable = false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JsonIgnore

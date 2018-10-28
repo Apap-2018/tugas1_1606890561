@@ -13,4 +13,6 @@ public interface InstansiDB extends JpaRepository<InstansiModel, Long> {
 
 	InstansiModel findById(long id);	
 	
+	List<InstansiModel> findByProvinsi(ProvinsiModel provinsi);
+	
 }

@@ -3,7 +3,12 @@
 
 <head>
 	<title>View Detail</title>
-</head>
+<object th:include="fragments/Fragment :: header" th:remove="tag"></object>
+		
+	</head>
+	
+	<body>
+		<nav th:replace="fragments/Fragment :: navbar"></nav>
 <div class="row">
 			<div class="col-md-6">
 				<div class="card">
@@ -42,5 +47,5 @@
 			</div>
 		</div>
 		
-
+</body>
 </html>
