@@ -15,5 +15,7 @@ public interface JabatanService {
 	
 	void deleteById(long id);
 	
+	Optional<JabatanModel> getJabatanById(long id);
+	
 	
 }

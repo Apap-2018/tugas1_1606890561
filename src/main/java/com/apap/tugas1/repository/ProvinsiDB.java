@@ -1,6 +1,7 @@
 package com.apap.tugas1.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -14,5 +15,7 @@ public interface ProvinsiDB extends JpaRepository<ProvinsiModel, Long> {
 	List<InstansiModel> findInstansiById(long provinsi);
 	
 	List<ProvinsiModel> findAll();
+	
+	Optional<ProvinsiModel> getProvinsiById(long id);
 
 }

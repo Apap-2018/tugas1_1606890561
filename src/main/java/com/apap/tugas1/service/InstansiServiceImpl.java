@@ -1,6 +1,7 @@
 package com.apap.tugas1.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -33,6 +34,12 @@ public class InstansiServiceImpl implements IntansiService{
 	public List<InstansiModel> getInstansiFromProvinsi(ProvinsiModel provinsi) {
 		// TODO Auto-generated method stub
 		return instansiDb.findByProvinsi(provinsi);
+	}
+
+	@Override
+	public Optional<InstansiModel> getInstansiById(long id) {
+		// TODO Auto-generated method stub
+		return instansiDb.getInstansiById(id);
 	}
 
 }

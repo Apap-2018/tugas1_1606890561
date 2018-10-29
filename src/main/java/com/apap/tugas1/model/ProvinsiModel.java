@@ -51,7 +51,7 @@ public class ProvinsiModel implements Serializable{
 	
 //onetomany
 	@JsonIgnore
-	@OneToMany(mappedBy = "provinsi", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "provinsi", cascade = CascadeType.PERSIST)
 	private List<InstansiModel> instansi;
 
 	
