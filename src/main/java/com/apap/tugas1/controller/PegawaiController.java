@@ -53,7 +53,7 @@ public class PegawaiController {
 		
 	}
 	
-	//nambah 
+	//nambah (source controller tugas1_1606878505_ZakiRaihan)
 
 	@RequestMapping(value = "/pegawai/tambah", method = RequestMethod.GET)
 	private String add(Model model) {
@@ -82,6 +82,7 @@ public class PegawaiController {
 	private String addPegawaiSubmit(@ModelAttribute PegawaiModel pegawai, Model model) {
 		pegawaiService.addPegawai(pegawai);
 		model.addAttribute("isi", pegawai.getNip());
+		model.addAttribute("operate", "Tambah");
 		return "nambahOK";
 	}
 	
@@ -143,7 +144,8 @@ public class PegawaiController {
 		 return "tua-muda";
     }
 	 
-	// lihat 
+	// lihat (Source Controller dan HTML tugas1_1606878505_ZakiRaihan) 
+	 
 	 @RequestMapping(value = "/pegawai/cari", method = RequestMethod.GET)
 		public String cariPegawai (@RequestParam(value="idProvinsi", required = false) Optional<Long> idProvinsi, 
 									@RequestParam(value="idInstansi", required = false) Optional<Long> idInstansi, 
@@ -194,5 +196,79 @@ public class PegawaiController {
 		}
 	
 	 
+	 // ubah (Source HTML tugas1_1606878505 ZakiRaihan)
+	 
+	 @RequestMapping(value = "/pegawai/ubah", method = RequestMethod.GET)
+		private String ubah(@RequestParam String nip, Model model) {
+			PegawaiModel pegawai = pegawaiService.findByNip(nip);
+			model.addAttribute("pegawai", pegawai);
+			
+			List<InstansiModel> listInstansi = instansiService.getAllInstansi();
+			model.addAttribute("listInstansi", new HashSet<InstansiModel>(listInstansi));
+			
+			List<JabatanModel> listJabatan = jabatanService.getAllJabatan();
+			model.addAttribute("listJabatan", new HashSet<JabatanModel>(listJabatan));
+			
+			List<ProvinsiModel> listProvinsi = provinsiService.findAllProvinsi();
+			model.addAttribute("listProvinsi", listProvinsi);
+			
+			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			String tanggalLahir = dateFormat.format(pegawai.getTanggalLahir());
+			model.addAttribute("tanggalLahir", tanggalLahir);
+			
+			return "ubah-pegawai";
+		}
+	 
+	 	@RequestMapping(value = "/pegawai/ubah", method = RequestMethod.POST, params={"addJabatan"})
+		private String addRowUbah(@ModelAttribute PegawaiModel pegawai, Model model) {
+			pegawai.getJabatan().add(new JabatanModel());
+			model.addAttribute("pegawai", pegawai);
+			
+			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			String tanggalLahir = simpleDateFormat.format(pegawai.getTanggalLahir());
+			model.addAttribute("tanggalLahir", tanggalLahir);
+			
+			List<InstansiModel> listInstansi = instansiService.getInstansiFromProvinsi(pegawai.getInstansi().getProvinsi());
+			model.addAttribute("listInstansi", new HashSet(listInstansi));
+			
+			List<JabatanModel> listJabatan = jabatanService.getAllJabatan();
+			model.addAttribute("listJabatan", new HashSet(listJabatan));
+			
+			List<ProvinsiModel> listProvinsi = provinsiService.findAllProvinsi();
+			model.addAttribute("listProvinsi", listProvinsi);
+			return "ubah-pegawai";
+		}
+	 	
+	 
+	 	@RequestMapping(value = "/pegawai/ubah", method = RequestMethod.POST, params={"deleteJabatan"})
+		private String deleteRowUbah(@ModelAttribute PegawaiModel pegawai, Model model, HttpServletRequest req) {
+			Integer rowId =  Integer.valueOf(req.getParameter("deleteJabatan"));
+			pegawai.getJabatan().remove(rowId.intValue());
+			model.addAttribute("pegawai", pegawai); 
+			
+			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			String tanggalLahir = simpleDateFormat.format(pegawai.getTanggalLahir());
+			model.addAttribute("tanggalLahir", tanggalLahir);
+			
+			List<InstansiModel> listInstansi = instansiService.getInstansiFromProvinsi(pegawai.getInstansi().getProvinsi());
+			model.addAttribute("listInstansi", new HashSet(listInstansi));
+			
+			List<JabatanModel> listJabatan = jabatanService.getAllJabatan();
+			model.addAttribute("listJabatan", new HashSet(listJabatan));
+			
+			List<ProvinsiModel> listProvinsi = provinsiService.findAllProvinsi();
+			model.addAttribute("listProvinsi", listProvinsi);
+			return "ubah-pegawai";
+		}
+	 	
+	 	@RequestMapping(value = "/pegawai/ubah", method = RequestMethod.POST)
+		public String ubahPegawai (@ModelAttribute PegawaiModel pegawai, Model model) {
+			String oldNip = pegawai.getNip();
+			pegawaiService.update(oldNip, pegawai);
+			model.addAttribute("isi", pegawai.getNip());
+			model.addAttribute("operate", "Ubah");
+			return "nambahOk";
+	 	}
+	 	
 	 
 }

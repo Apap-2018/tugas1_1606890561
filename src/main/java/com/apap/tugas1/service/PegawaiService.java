@@ -26,5 +26,6 @@ public interface PegawaiService {
 	
 	List<PegawaiModel> getPegawaiByJabatan (JabatanModel jabatan);
 	
+	PegawaiModel update(String nip, PegawaiModel pegawai);
 }
 	

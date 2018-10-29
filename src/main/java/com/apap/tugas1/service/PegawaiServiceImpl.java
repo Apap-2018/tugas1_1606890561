@@ -115,5 +115,11 @@ public class PegawaiServiceImpl implements PegawaiService {
 		return hasil;
 	}
 
+	@Override
+	public PegawaiModel update(String nip, PegawaiModel pegawai) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 }
